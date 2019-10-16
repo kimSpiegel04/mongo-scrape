@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var ArticleSchema = new Schema({
+var FavoriteSchema = new Schema({
 
     title: {
         type: String,
@@ -13,7 +13,7 @@ var ArticleSchema = new Schema({
         type: String,
         required: true
     }, 
-    
+
     notes: [
         {
             type: Schema.Types.ObjectId,
@@ -22,6 +22,6 @@ var ArticleSchema = new Schema({
     ]
 });
 
-var Article = mongoose.model("Article", ArticleSchema);
+var Favorite = mongoose.model("Favorite", FavoriteSchema);
 
-module.exports = Article;
+module.exports = Favorite;

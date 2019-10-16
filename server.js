@@ -4,7 +4,8 @@ var express     = require('express'),
     axios       = require('axios'),
     cheerio     = require('cheerio'),
     Article     = require('./models/Article'),
-    Note        = require('./models/Note');
+    Note        = require('./models/Note'),
+    Favorite    = require('./models/Favorites');
 
 var PORT = process.env.PORT || 3000;
 
@@ -66,9 +67,31 @@ app.get('/articles', function(req, res){
         });
 });
 
+
+// Save article to favorites
+app.get('/articles/:id', function(req,res){
+    Article.findById(req.params.id, function(err,article){
+        if(err){
+            console.log(err);
+            res.redirect('/articles');
+        } else {
+            res.json(article);
+            // Favorite.create(article, function(error, newFavorite){
+            //     if(error){
+            //         console.log(error);
+            //     } else {
+            //         article.
+            //         res.redirect('/favorites');
+            //     }
+            // });
+        }
+    });
+});
+
+
 // Show favorite articles
 app.get('/favorites', function(req,res){
-    Article.find({})
+    Favorite.find({})
         .then(function(allFavorites){
             res.render('favorites/index', {favorites: allFavorites});
         })
@@ -91,8 +114,7 @@ app.get('/favorites/:id', function(req,res){
         });
 });
 
-
-// Save article to favorites
+// Delete favorite
 
 ////////////////////// * NOTES ////////////////////////////
 
